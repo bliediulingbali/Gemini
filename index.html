@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini - Bli Edi</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        /* Variabel CSS untuk tema */
+        :root {
+            --background-color: #1a1a2e;
+            --text-color: #e0e0e0;
+            --card-background: #2e2e4a;
+            --primary-color: #007bff;
+            --primary-hover-color: #0056b3;
+            --box-shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            text-align: center;
+            transition: background-color 0.5s ease;
+            overflow: hidden; /* Untuk animasi latar belakang */
+        }
+
+        /* Animasi Latar Belakang */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460, #533483);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            padding: 40px;
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px var(--box-shadow-color);
+            transform: translateY(0);
+            animation: fadeInScale 1s ease-out forwards;
+            position: relative; /* Untuk z-index di atas background */
+            z-index: 1;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+            /* Animasi masuk awal */
+            animation: slideInFromLeft 1s ease-out forwards, 
+                       floatAnimation 3s ease-in-out infinite 1s; /* Animasi naik turun, dimulai setelah slideInFromLeft */
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Keyframe untuk animasi naik turun */
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px); /* Naik 10px */
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            animation: fadeInText 1.5s ease-out forwards;
+            animation-delay: 0.5s;
+            opacity: 0; /* Mulai tersembunyi */
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px; /* Bentuk pil */
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-top: 30px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+            animation: bounceIn 1s ease-out forwards;
+            animation-delay: 1s;
+            /* opacity: 0; */ /* Hapus baris ini seperti yang kita diskusikan sebelumnya */
+        }
+
+        button:hover {
+            background-color: var(--primary-hover-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌺</h1>
+        <h2>Hai Selamat Datang</h2>
+        <p>silakan klik untuk membuka google gemini.</p>
+        <button id="openLinkButton">Buka Gemini</button>
+    </div>
+
+    <script>
+        const targetUrl = 'https://gemini.google.com/app'; // <-- GANTI DENGAN TAUTAN YANG ANDA INGINKAN!
+
+        // Registrasi Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker berhasil didaftarkan:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Registrasi Service Worker gagal:', error);
+                    });
+            });
+        }
+
+        // Buka tautan saat tombol diklik
+        document.getElementById('openLinkButton').addEventListener('click', () => {
+            window.location.href = targetUrl;
+        });
+
+        // Opsi: Langsung buka tautan saat PWA diluncurkan tanpa klik tombol
+        // Cukup hapus komentar baris di bawah ini dan Anda bisa menyembunyikan/menghapus tombol di HTML
+        /*
+        window.addEventListener('load', () => {
+            window.location.href = targetUrl;
+        });
+        */
+    </script>
+</body>
+</html>
