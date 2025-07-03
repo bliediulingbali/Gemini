@@ -8,39 +8,18 @@ const urlsToCache = [
   '/icons/icon-512x512.png'
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Cache terbuka');
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', function(event) {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response; // Ambil dari cache jika ada
-        }
-        return fetch(event.request); // Jika tidak, ambil dari jaringan
-      })
-  );
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Menghapus cache lama:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
     })
   );
 });
