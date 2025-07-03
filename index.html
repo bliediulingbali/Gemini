@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gemini - Bli Edi</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="icons/icon-192x192.png" sizes="192x192" />
+    <link rel="icon" href="icons/icon-192.png" sizes="192x192" />
     <style>
         /* Variabel CSS untuk tema */
         :root {
@@ -184,8 +184,7 @@
         const targetUrl = 'https://gemini.google.com/app?hl=id'; // <-- GANTI DENGAN TAUTAN YANG ANDA INGINKAN!
 
         // Registrasi Service Worker
-        <!--
-        if ('serviceWorker' in navigator) {
+       if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/service-worker.js')
                     .then(registration => {
@@ -196,14 +195,7 @@
                     });
             });
         }
-        -->
-
-        if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('service-worker.js')
-		  .then(() => console.log('Service Worker registered!'))
-		  .catch(err => console.log('SW registration failed:', err));
-	    }
-
+	    
         // Buka tautan saat tombol diklik
         document.getElementById('openLinkButton').addEventListener('click', () => {
             window.location.href = targetUrl;
