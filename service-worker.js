@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-pwa-cache-v1';
+const CACHE_NAME = 'gemini-launcher-pwa-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
