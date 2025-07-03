@@ -1,6 +1,9 @@
 {
-    "name": "Gemini Google AI",
-    "short_name": "Gemini",
+    "name": "Gemini Launcher",
+    "short_name": "Gemini Launcher",
+    "version": "0.1.0",
+    "private": true,
+    "homepage": "https://bliediulingbali.github.io/Gemini/",
     "description": "PWA sederhana untuk membuka link Gemini.",
     "start_url": "/index.html",
     "display": "standalone",
