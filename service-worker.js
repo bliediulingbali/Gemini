@@ -1,18 +1,47 @@
-self.addEventListener('install', (event) => {
-    console.log('Service Worker: Installed');
-    // Anda bisa menambahkan caching aset statis di sini jika diperlukan.
-    // Untuk PWA pembuka tautan sederhana, ini mungkin tidak terlalu krusial.
-    event.waitUntil(self.skipWaiting());
+const CACHE_NAME = 'my-pwa-cache-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/style.css',
+  '/app.js',
+  '/manifest.json',
+  '/icons/icon-192x192.png',
+  '/icons/icon-512x512.png'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Cache terbuka');
+        return cache.addAll(urlsToCache);
+      })
+  );
 });
 
-self.addEventListener('activate', (event) => {
-    console.log('Service Worker: Activated');
-    // Memastikan service worker baru mengambil alih kendali segera
-    event.waitUntil(self.clients.claim());
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          return response; // Ambil dari cache jika ada
+        }
+        return fetch(event.request); // Jika tidak, ambil dari jaringan
+      })
+  );
 });
 
-self.addEventListener('fetch', (event) => {
-    // Untuk PWA pembuka tautan, kita mungkin tidak perlu menangani fetch secara kompleks.
-    // Jika ada, Anda bisa menambahkan strategi caching di sini.
-    // event.respondWith(fetch(event.request));
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            console.log('Menghapus cache lama:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
 });
