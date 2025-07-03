@@ -1,12 +1,9 @@
 {
     "name": "Gemini Launcher",
     "short_name": "Gemini Launcher",
-    "version": "0.1.0",
-    "private": true,
-    "homepage": "https://bliediulingbali.github.io/Gemini-Launcher/",
-    "description": "PWA sederhana untuk membuka link Gemini.",
-    "start_url": "/index.html",
+    "start_url": "./",
     "display": "standalone",
+	"orientation": "portrait",
     "background_color": "#ffffff",
     "theme_color": "#007bff",
     "icons": [
