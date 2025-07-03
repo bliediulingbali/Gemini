@@ -5,7 +5,7 @@
     "private": true,
     "homepage": "https://bliediulingbali.github.io/Gemini-Launcher/",
     "description": "PWA sederhana untuk membuka link Gemini.",
-    "start_url": "/index.html", <--- UBAH INI
+    "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#007bff",
