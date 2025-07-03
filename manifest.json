@@ -1,7 +1,7 @@
 {
-    "name": "Pembuka Tautan Saya",
-    "short_name": "Link PWA",
-    "description": "PWA sederhana untuk membuka tautan.",
+    "name": "Gemini Google AI",
+    "short_name": "Gemini",
+    "description": "PWA sederhana untuk membuka link Gemini.",
     "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
