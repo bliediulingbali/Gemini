@@ -1,11 +1,11 @@
-const CACHE_NAME = 'my-pwa-cache-v1';
+const CACHE_NAME = 'geminilauncher-pwa-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
   '/service-worker.js',
   '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  '/icons/icon-192.png',
+  '/icons/icon-512.png'
   // Jika ada file CSS internal atau aset lain, tambahkan di sini
 ];
 
